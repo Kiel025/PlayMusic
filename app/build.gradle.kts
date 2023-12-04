@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.kiel.playmusic"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.kiel.playmusic"
