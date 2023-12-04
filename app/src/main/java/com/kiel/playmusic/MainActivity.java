@@ -1,10 +1,10 @@
 package com.kiel.playmusic;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         play = findViewById(R.id.play);
         stop = findViewById(R.id.stop);
 
-        mediaPlayer = MediaPlayer.create(this,  R.raw.global);
+        mediaPlayer = MediaPlayer.create(this, R.raw.global);
 
         pause.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
@@ -35,10 +35,28 @@ public class MainActivity extends AppCompatActivity {
         });
 
         stop.setOnClickListener(v -> {
-            if(mediaPlayer.isPlaying()) {
+            if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
-                mediaPlayer = MediaPlayer.create(this,  R.raw.global);
+                mediaPlayer = MediaPlayer.create(this, R.raw.global);
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }
